@@ -1,6 +1,6 @@
 #Markov Chain Monte Carlo "DA" method
 
-mcmc_steps_tanner_wong <- function(tr, tipdata, rt_value, lst, theta, model,
+mcmc_steps_DA <- function(tr, tipdata, rt_value, lst, theta, model,
                             para2est, update_method, proposals, priors,
                             method, N=N, ...) {
 

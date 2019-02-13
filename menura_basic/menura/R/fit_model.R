@@ -284,7 +284,7 @@ fit_model <- function(tr, tipdata, rt_value = mean(tipdata),
   if (mcmc_type == "DA") {
     for (k in 2:iters) {
       setTxtProgressBar(pb, k)
-      out_mcmc <- mcmc_steps_tanner_wong(tr = tr, tipdata = tipdata,
+      out_mcmc <- mcmc_steps_DA(tr = tr, tipdata = tipdata,
                   rt_value = rt_value, lst = lst,
                   theta = theta, model = M, para2est = para2est,
                   update_method = update_method, proposals = proposals,
@@ -299,7 +299,7 @@ fit_model <- function(tr, tipdata, rt_value = mean(tipdata),
   } else if (mcmc_type == "Fuchs") {
     for (k in 2:iters) {
       setTxtProgressBar(pb, k)
-      out_mcmc <- mcmc_steps_else(tr = tr, tipdata = tipdata,
+      out_mcmc <- mcmc_steps_fuchs(tr = tr, tipdata = tipdata,
                   rt_value = rt_value, lst = lst,
                   theta = theta, model = M, para2est = para2est,
                   update_method = update_method, proposals = proposals,

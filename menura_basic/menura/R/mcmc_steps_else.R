@@ -1,7 +1,7 @@
 
 # Markov Chain Monte Carlo "Fuchs" method
 
-mcmc_steps_else <- function(tr, tipdata, rt_value, lst, theta, model,
+mcmc_steps_fuchs <- function(tr, tipdata, rt_value, lst, theta, model,
                    para2est, update_method, proposals, priors,
                    method, N = N, ...) {
 
