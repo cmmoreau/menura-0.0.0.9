@@ -1,4 +1,4 @@
-#Markov Chain Monte Carlo "tanner-wong" method
+#Markov Chain Monte Carlo "DA" method
 
 mcmc_steps_tanner_wong <- function(tr, tipdata, rt_value, lst, theta, model,
                             para2est, update_method, proposals, priors,
@@ -26,13 +26,13 @@ mcmc_steps_tanner_wong <- function(tr, tipdata, rt_value, lst, theta, model,
   if (update_method == "tree") {
     rlst <- update_tree(lst = lst, tr = tr, tipdata = tipdata,
                     rt_value = rt_value, model = model, theta = theta,
-                    N = N, method = method, mcmc_type = "tanner-wong")
+                    N = N, method = method, mcmc_type = "DA")
     lst_star <- rlst$lst
     n_data_accept <- 1 
   } else if (update_method == "subtree") {
     rlst <- update_subtree(lst = lst, tr = tr, tipdata = tipdata,
                     rt_value = rt_value, model = model, theta = theta,
-                    N = N, method = method, mcmc_type = "tanner-wong")
+                    N = N, method = method, mcmc_type = "DA")
     lst_star <- rlst$lst
     n_data_accept <- 1 
   } else {

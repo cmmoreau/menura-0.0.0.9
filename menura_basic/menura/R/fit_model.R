@@ -88,7 +88,7 @@
 #'of the model parameters. Use of the default priors is not recommended.
 #'@param proposals A list of lists containing functions for proposal distributions
 #'of the model parameters.
-#'@param mcmc_type Type of MCMC algorithm, "tanner-wong" or "fuchs"
+#'@param mcmc_type Type of MCMC algorithm, "DA" or "Fuchs"
 #'@param alpha Set to NULL if alpha is to be estimated,
 #'otherwise set to a numeric value or a numeric vector specifying
 #'the value of the parameter for all the branches/edges.
@@ -161,7 +161,7 @@ fit_model <- function(tr, tipdata, rt_value = mean(tipdata),
                                              rf = function(n, sigma, gamma=0.5) {
                                                     rlnorm(n, meanlog = log(sigma), sdlog = gamma)})
                               ),
-                    mcmc_type = "tanner-wong", alpha = NULL, mu = NULL, sigma = NULL,
+                    mcmc_type = "DA", alpha = NULL, mu = NULL, sigma = NULL,
                     N = 100, init_method = "sim", update_method = "subtree", iters = 5000,
                     method = "euler", ...){
 
@@ -232,6 +232,9 @@ fit_model <- function(tr, tipdata, rt_value = mean(tipdata),
   if (!((update_method == "tree") || (update_method == "subtree")))
     stop("update_method must only be tree or subtree", call. = FALSE)
   
+  if (!((mcmc_type == "DA") || (mcmc_type == "Fuchs")))
+    stop("mcmc_type must only be DA or Fuchs", call. = FALSE)
+  
   if (!ape::is.binary(tr)) {
     stop("The tree must be rooted.", call. = FALSE)
   }
@@ -278,7 +281,7 @@ fit_model <- function(tr, tipdata, rt_value = mean(tipdata),
   n_para_accept[1] <- n_data_accept[1] <- 1
   pb <- txtProgressBar(min=1, max=iters)
   
-  if (mcmc_type == "tanner-wong") {
+  if (mcmc_type == "DA") {
     for (k in 2:iters) {
       setTxtProgressBar(pb, k)
       out_mcmc <- mcmc_steps_tanner_wong(tr = tr, tipdata = tipdata,
@@ -293,7 +296,7 @@ fit_model <- function(tr, tipdata, rt_value = mean(tipdata),
       n_data_accept[k] <- out_mcmc$n_data_accept
     }
     close(pb)
-  } else {
+  } else if (mcmc_type == "Fuchs") {
     for (k in 2:iters) {
       setTxtProgressBar(pb, k)
       out_mcmc <- mcmc_steps_else(tr = tr, tipdata = tipdata,

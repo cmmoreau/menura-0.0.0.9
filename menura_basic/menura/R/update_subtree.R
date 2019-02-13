@@ -1,5 +1,5 @@
 update_subtree <- function(lst, tr, tipdata, rt_value, N, method = "euler",
-                            theta, model, mcmc_type = "tanner-wong", ...) {
+                            theta, model, mcmc_type = "DA", ...) {
 
   # Log L's  are calculated for subtr_tips instead of a clade
   # Update from any node regardless edge length
@@ -95,10 +95,10 @@ update_subtree <- function(lst, tr, tipdata, rt_value, N, method = "euler",
     redge <- which(tr$edge[, 1] == rnode)[1]
     sde_edges(tr, rnode, X0 = lst[[redge]][1], t0 = tsp(lst[[redge]])[1])
 
-    if (mcmc_type == "tanner-wong") {
+    if (mcmc_type == "DA") {
       lst <- new_lst
       data_accept <- 1
-    } else {
+    } else if (mcmc_type == "Fuchs"){
 
       # Calculate the acceptance probability
       data_accept <- 0

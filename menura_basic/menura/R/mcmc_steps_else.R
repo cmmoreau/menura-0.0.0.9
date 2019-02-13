@@ -1,5 +1,5 @@
 
-# Markov Chain Monte Carlo "fuchs" method
+# Markov Chain Monte Carlo "Fuchs" method
 
 mcmc_steps_else <- function(tr, tipdata, rt_value, lst, theta, model,
                    para2est, update_method, proposals, priors,
@@ -45,13 +45,13 @@ mcmc_steps_else <- function(tr, tipdata, rt_value, lst, theta, model,
   if (update_method == "tree") {
     rlst <- update_tree(lst = lst, tr = tr, tipdata = tipdata,
                         rt_value = rt_value, model = model, theta = theta, N = N,
-                        method = method,  mcmc_type = "fuchs")
+                        method = method,  mcmc_type = "Fuchs")
     lst <- rlst$lst
     n_data_accept <- ifelse(rlst$data_accept > 0, 1, 0)
   } else if (update_method == "subtree") {
      rlst <- update_subtree(lst = lst, tr = tr, tipdata = tipdata,
                             rt_value = rt_value, model = model, theta = theta,
-                            N = N, method = method,  mcmc_type = "fuchs")
+                            N = N, method = method,  mcmc_type = "Fuchs")
      lst <- rlst$lst
      n_data_accept <- ifelse(rlst$data_accept > 0, 1, 0)
   }
